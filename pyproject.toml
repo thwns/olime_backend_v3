@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "olime-backend-v3"
+version = "0.1.0"
+description = ""
+authors = ["thwns <naturalthwns@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "olime_backend_v3"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+Django = "^4.1.4"
+Pillow = "^9.3.0"
+djangorestframework = "^3.14.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
