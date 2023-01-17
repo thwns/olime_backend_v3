@@ -52,7 +52,7 @@ class Content(CommonModel):
     def rating(content):
         count = content.reviews.count()
         if count == 0:
-            return "No Reviews"
+            return 0
         else:
             total_rating = 0
             for review in content.reviews.all().values("rating"):
@@ -85,7 +85,7 @@ class Track(CommonModel):
     def rating(track):
         count = track.reviews.count()
         if count == 0:
-            return "No Reviews"
+            return 0
         else:
             total_rating = 0
             for review in track.reviews.all().values("rating"):

@@ -17,41 +17,49 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='content',
             name='books',
-            field=models.ManyToManyField(blank=True, related_name='contents', to='contents.book'),
+            field=models.ManyToManyField(
+                blank=True, related_name='contents', to='contents.book'),
         ),
         migrations.AlterField(
             model_name='content',
             name='category',
-            field=models.ManyToManyField(blank=True, related_name='contents', to='categories.category'),
+            field=models.ManyToManyField(
+                blank=True, related_name='contents', to='categories.category'),
         ),
         migrations.AlterField(
             model_name='content',
             name='leader',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='contents', to=settings.AUTH_USER_MODEL),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                                    related_name='contents', to=settings.AUTH_USER_MODEL),
         ),
         migrations.AlterField(
             model_name='content',
             name='lectures',
-            field=models.ManyToManyField(blank=True, related_name='contents', to='contents.lecture'),
+            field=models.ManyToManyField(
+                blank=True, related_name='contents', to='contents.lecture'),
         ),
         migrations.AlterField(
             model_name='content',
             name='tracks',
-            field=models.ManyToManyField(blank=True, related_name='contents', to='contents.track'),
+            field=models.ManyToManyField(
+                blank=True, related_name='contents', to='contents.track'),
         ),
         migrations.AlterField(
             model_name='lecture',
             name='books',
-            field=models.ManyToManyField(blank=True, related_name='books', to='contents.book'),
+            field=models.ManyToManyField(
+                blank=True, related_name='books', to='contents.book'),
         ),
         migrations.AlterField(
             model_name='track',
             name='category',
-            field=models.ManyToManyField(blank=True, related_name='tracks', to='categories.category'),
+            field=models.ManyToManyField(
+                blank=True, related_name='tracks', to='categories.category'),
         ),
         migrations.AlterField(
             model_name='track',
             name='leader',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='tracks', to=settings.AUTH_USER_MODEL),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                                    related_name='tracks', to=settings.AUTH_USER_MODEL),
         ),
     ]

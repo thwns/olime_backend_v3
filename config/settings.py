@@ -42,6 +42,7 @@ CUSTOM_APPS = [
     "reviews.apps.ReviewsConfig",
     "followlists.apps.FollowlistsConfig",
     "followings.apps.FollowingsConfig",
+    "medias.apps.MediasConfig",
 ]
 
 SYSTEM_APPS = [
@@ -140,3 +141,9 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = "users.User"
+
+MEDIA_ROOT = "uploads"
+
+MEDIA_URL = "user-uploads/"
+
+PAGE_SIZE = 3

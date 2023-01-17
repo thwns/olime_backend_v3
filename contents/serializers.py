@@ -1,10 +1,12 @@
-from rest_framework.serializers import ModelSerializer
+from rest_framework import serializers
 from .models import Book, Lecture, Content, Track
 from users.serializers import TinyUserSerializer
+from reviews.serializers import ReviewSerializer
 from categories.serializers import CategorySerializer
+from medias.serializers import PhotoSerializer
 
 
-class TrackListSerializer(ModelSerializer):
+class TrackListSerializer(serializers.ModelSerializer):
 
     leader = TinyUserSerializer()
 
@@ -18,19 +20,25 @@ class TrackListSerializer(ModelSerializer):
         )
 
 
-class BookSerializer(ModelSerializer):
+class BookSerializer(serializers.ModelSerializer):
     class Meta:
         model = Book
         fields = "__all__"
 
 
-class LectureSerializer(ModelSerializer):
+class TrackSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Track
+        fields = "__all__"
+
+
+class LectureSerializer(serializers.ModelSerializer):
     class Meta:
         model = Lecture
         fields = "__all__"
 
 
-class ContentDetailSerializer(ModelSerializer):
+class ContentDetailSerializer(serializers.ModelSerializer):
 
     leader = TinyUserSerializer(read_only=True)
     books = BookSerializer(
@@ -49,13 +57,28 @@ class ContentDetailSerializer(ModelSerializer):
         read_only=True,
         many=True
     )
+    rating = serializers.SerializerMethodField()
+    is_leader = serializers.SerializerMethodField()
+    photos = PhotoSerializer(many=True, read_only=True)
 
     class Meta:
         model = Content
         fields = "__all__"
 
+    def get_rating(self, content):
+        return content.rating()
 
-class ContentListSerializer(ModelSerializer):
+    def get_is_leader(self, content):
+        request = self.context["request"]
+        return content.leader == request.user
+
+
+class ContentListSerializer(serializers.ModelSerializer):
+
+    rating = serializers.SerializerMethodField()
+    is_leader = serializers.SerializerMethodField()
+    photos = PhotoSerializer(many=True, read_only=True)
+
     class Meta:
         model = Content
         fields = (
@@ -65,4 +88,14 @@ class ContentListSerializer(ModelSerializer):
             "types",
             "author",
             "company",
+            "rating",
+            "is_leader",
+            "photos",
         )
+
+    def get_rating(self, content):
+        return content.rating()
+
+    def get_is_leader(self, content):
+        request = self.context["request"]
+        return content.leader == request.user

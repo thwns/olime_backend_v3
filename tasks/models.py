@@ -21,7 +21,7 @@ class Task(models.Model):
     def rating(task):
         count = task.reviews.count()
         if count == 0:
-            return "No Reviews"
+            return 0
         else:
             total_rating = 0
             for review in task.reviews.all().values("rating"):
