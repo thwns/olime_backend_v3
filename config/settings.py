@@ -14,6 +14,8 @@ from pathlib import Path
 import os
 import environ
 import dj_database_url
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
 
 env = environ.Env()
 
@@ -194,3 +196,20 @@ REST_FRAMEWORK = {
 SPECTACULAR_SETTINGS = {
     'COMPONENT_SPLIT_REQUEST': True,
 }
+
+if not DEBUG:
+    sentry_sdk.init(
+        dsn="https://9ae37835d8cb4dffb9d4e253a5977f69@o4504531977502720.ingest.sentry.io/4504531978944512",
+        integrations=[
+            DjangoIntegration(),
+        ],
+
+        # Set traces_sample_rate to 1.0 to capture 100%
+        # of transactions for performance monitoring.
+        # We recommend adjusting this value in production.
+        traces_sample_rate=1.0,
+
+        # If you wish to associate users to errors (assuming you are using
+        # django.contrib.auth) you may enable sending PII data.
+        send_default_pii=True
+    )

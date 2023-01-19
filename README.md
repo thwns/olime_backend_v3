@@ -9,3 +9,4 @@
 # 수정 필요:
 # graphql
 # login with frontend
+# 사진을 url로 하게 field 조정

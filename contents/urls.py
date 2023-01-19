@@ -12,4 +12,5 @@ urlpatterns = [
     path("lectures/<int:pk>", views.LectureDetail.as_view()),
     path("tracks/", views.Tracks.as_view()),
     path("tracks/<int:pk>", views.TrackDetail.as_view()),
+    path("make-error", views.make_error),
 ]

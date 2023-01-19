@@ -359,3 +359,7 @@ class ContentPhotos(APIView):
             return Response(serializer.data)
         else:
             return Response(serializer.errors)
+
+
+def trigger_error(request):
+    division_by_zero = 1 / 0
