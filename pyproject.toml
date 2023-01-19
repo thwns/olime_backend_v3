@@ -5,7 +5,6 @@ description = ""
 authors = ["thwns <naturalthwns@gmail.com>"]
 license = "MIT"
 readme = "README.md"
-packages = [{include = "olime_backend_v3"}]
 
 [tool.poetry.dependencies]
 python = "^3.10"
