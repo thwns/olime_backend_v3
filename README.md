@@ -5,3 +5,7 @@
 # contents 같이 followlist 코드짜기
 
 # django api guide -> django rest knox, simple jwt
+
+# 수정 필요:
+# graphql
+# login with frontend
