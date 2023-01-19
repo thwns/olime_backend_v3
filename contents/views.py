@@ -361,5 +361,5 @@ class ContentPhotos(APIView):
             return Response(serializer.errors)
 
 
-def trigger_error(request):
+def make_error(request):
     division_by_zero = 1 / 0
