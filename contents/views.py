@@ -11,7 +11,14 @@ from rest_framework.exceptions import (
 from rest_framework.response import Response
 from .models import Book, Lecture, Content, Track
 from categories.models import Category
-from .serializers import BookSerializer, LectureSerializer, ContentListSerializer, ContentDetailSerializer
+from .serializers import (
+    BookSerializer,
+    LectureSerializer,
+    ContentListSerializer,
+    ContentDetailSerializer,
+    TrackListSerializer,
+    TrackSerializer
+)
 from reviews.serializers import ReviewSerializer
 from medias.serializers import PhotoSerializer
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
@@ -67,6 +74,8 @@ class BookDetail(APIView):
 
 
 class Tracks(APIView):
+
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
     def get(self, request):
         all_tracks = Track.objects.all()
@@ -161,6 +170,9 @@ class LectureDetail(APIView):
 
 
 class Contents(APIView):
+
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
     def get(self, request):
         all_contents = Content.objects.all()
         serializer = ContentListSerializer(
@@ -171,42 +183,41 @@ class Contents(APIView):
         return Response(serializer.data)
 
     def post(self, request):
-        if request.user.is_authenticated:
-            serializer = ContentDetailSerializer(data=request.data)
-            if serializer.is_valid():
-                try:
-                    with transaction.atomic():
-                        content = serializer.save(leader=request.user)
-                        tracks = request.data.get("tracks")
-                        for track_pk in tracks:
-                            track = Track.objects.get(pk=track_pk)
-                            content.tracks.add(track)
-                        books = request.data.get("books")
-                        for book_pk in books:
-                            book = Book.objects.get(pk=book_pk)
-                            content.books.add(book)
-                        categories = request.data.get("category")
-                        for category_pk in categories:
-                            category_temp = Category.objects.get(
-                                pk=category_pk)
-                            content.category.add(category_temp)
-                        lectures = request.data.get("lectures")
-                        for lecture_pk in lectures:
-                            lecture = Lecture.objects.get(pk=lecture_pk)
-                            content.lectures.add(lecture)
-                        serializer = ContentDetailSerializer(content)
-                        return Response(serializer.data)
-                except Exception:
-                    raise ParseError(
-                        "Category or Book or Lecture or Track not found")
+        serializer = ContentDetailSerializer(data=request.data)
+        if serializer.is_valid():
+            try:
+                with transaction.atomic():
+                    content = serializer.save(leader=request.user)
+                    tracks = request.data.get("tracks")
+                    for track_pk in tracks:
+                        track = Track.objects.get(pk=track_pk)
+                        content.tracks.add(track)
+                    books = request.data.get("books")
+                    for book_pk in books:
+                        book = Book.objects.get(pk=book_pk)
+                        content.books.add(book)
+                    categories = request.data.get("category")
+                    for category_pk in categories:
+                        category_temp = Category.objects.get(
+                            pk=category_pk)
+                        content.category.add(category_temp)
+                    lectures = request.data.get("lectures")
+                    for lecture_pk in lectures:
+                        lecture = Lecture.objects.get(pk=lecture_pk)
+                        content.lectures.add(lecture)
+                    serializer = ContentDetailSerializer(content)
+                    return Response(serializer.data)
+            except Exception:
+                raise ParseError(
+                    "Category or Book or Lecture or Track not found")
 
-            else:
-                return Response(serializer.errors)
         else:
-            raise NotAuthenticated
+            return Response(serializer.errors)
 
 
 class ContentDetail(APIView):
+
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
     def get_object(self, pk):
         try:
@@ -224,8 +235,6 @@ class ContentDetail(APIView):
 
     def put(self, request, pk):
         content = self.get_object(pk)
-        if not request.user.is_authenticated:
-            raise NotAuthenticated
         if content.leader != request.user:
             raise PermissionDenied
         serializer = ContentDetailSerializer(
@@ -286,8 +295,6 @@ class ContentDetail(APIView):
 
     def delete(self, request, pk):
         content = self.get_object(pk)
-        if not request.user.is_authenticated:
-            raise NotAuthenticated
         if content.leader != request.user:
             raise PermissionDenied
         content.delete()
@@ -295,6 +302,9 @@ class ContentDetail(APIView):
 
 
 class ContentReviews(APIView):
+
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
     def get_object(self, pk):
         try:
             return Content.objects.get(pk=pk)
@@ -329,6 +339,9 @@ class ContentReviews(APIView):
 
 
 class ContentPhotos(APIView):
+
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
     def get_object(self, pk):
         try:
             return Content.objects.get(pk=pk)
@@ -337,8 +350,6 @@ class ContentPhotos(APIView):
 
     def post(self, request, pk):
         content = self.get_object(pk)
-        if not request.user.is_authenticated:
-            raise NotAuthenticated
         if request.user != content.leader:
             raise PermissionDenied
         serializer = PhotoSerializer(data=request.data)

@@ -6,18 +6,20 @@ class Following(CommonModel):
 
     """ Following Model definition """
 
+    name = models.CharField(
+        max_length=150,
+        null=True,
+    )
     user = models.ForeignKey(
         "users.User",
+        null=True,
         on_delete=models.CASCADE,
         related_name="followings",
     )
-    track = models.ForeignKey(
+    track = models.ManyToManyField(
         "contents.Track",
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
         related_name="followings",
     )
 
     def __str__(self):
-        return f"{self.kind.title()} booking for: {self.user}"
+        return f"{self.name} following for: {self.user}"

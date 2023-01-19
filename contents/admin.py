@@ -6,10 +6,10 @@ from .models import Track, Content, Book, Lecture
 class TrackAdmin(admin.ModelAdmin):
 
     list_display = (
-        'name', 'followers_num', 'created_at', 'updated_at',
+        'name', 'created_at', 'updated_at',
     )
     list_filter = (
-        'followers_num', 'category',
+        'category',
     )
     search_fields = (
         'name',

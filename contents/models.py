@@ -67,7 +67,6 @@ class Track(CommonModel):
     name = models.CharField(max_length=140)
     image = models.ImageField(blank=True,)
     description = models.TextField(blank=True)
-    followers_num = models.PositiveIntegerField()
     leader = models.ForeignKey(
         "users.User",
         on_delete=models.CASCADE,
@@ -92,11 +91,16 @@ class Track(CommonModel):
                 total_rating += review["rating"]
             return round(total_rating / count, 2)
 
+    def followers_num(track):
+        count = track.followings.count()
+        return count
+
 
 class Book(CommonModel):
 
     """ Model Definition for Books """
 
+    unique_id = models.PositiveIntegerField(null=True,)
     vesrion = models.CharField(max_length=140)
     title = models.CharField(max_length=140)
     sub_title = models.CharField(max_length=140)
@@ -113,6 +117,7 @@ class Lecture(CommonModel):
 
     """ Model Definition for Lectures """
 
+    unique_id = models.PositiveIntegerField(null=True,)
     vesrion = models.CharField(max_length=140)
     title = models.CharField(max_length=140)
     sub_title = models.CharField(max_length=140)

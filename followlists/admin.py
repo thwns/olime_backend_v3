@@ -7,6 +7,7 @@ class FollowlistAdmin(admin.ModelAdmin):
     list_display = (
         "name",
         "user",
+        "track",
         "created_at",
         "updated_at",
     )

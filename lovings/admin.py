@@ -5,9 +5,5 @@ from .models import Loving
 @admin.register(Loving)
 class Loving(admin.ModelAdmin):
     list_display = (
-        "kind",
         "user",
-        "content",
-        "track",
     )
-    list_filter = ("kind",)

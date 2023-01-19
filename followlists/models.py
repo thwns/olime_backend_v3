@@ -8,8 +8,10 @@ class Followlist(CommonModel):
     name = models.CharField(
         max_length=150,
     )
-    tracks = models.ManyToManyField(
+    track = models.ForeignKey(
         "contents.Track",
+        on_delete=models.CASCADE,
+        null=True,
         related_name="followlists",
     )
     user = models.ForeignKey(

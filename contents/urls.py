@@ -10,4 +10,6 @@ urlpatterns = [
     path("books/<int:pk>", views.BookDetail.as_view()),
     path("lectures/", views.Lectures.as_view()),
     path("lectures/<int:pk>", views.LectureDetail.as_view()),
+    path("tracks/", views.Tracks.as_view()),
+    path("tracks/<int:pk>", views.TrackDetail.as_view()),
 ]

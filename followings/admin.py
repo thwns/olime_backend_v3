@@ -6,5 +6,4 @@ from .models import Following
 class Following(admin.ModelAdmin):
     list_display = (
         "user",
-        "track",
     )

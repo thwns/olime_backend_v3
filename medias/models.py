@@ -15,19 +15,19 @@ class Photo(CommonModel):
         blank=True,
     )
     track = models.ForeignKey(
-        "contensts.Track",
+        "contents.Track",
         on_delete=models.CASCADE,
         null=True,
         blank=True,
     )
     book = models.ForeignKey(
-        "contensts.Book",
+        "contents.Book",
         on_delete=models.CASCADE,
         null=True,
         blank=True,
     )
     lecture = models.ForeignKey(
-        "contensts.Lecture",
+        "contents.Lecture",
         on_delete=models.CASCADE,
         null=True,
         blank=True,

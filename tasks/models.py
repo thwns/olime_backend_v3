@@ -10,9 +10,16 @@ class Task(models.Model):
     learning_time = models.DecimalField(max_digits=5, decimal_places=1,)
     guideline = models.TextField(blank=True)
     references = models.CharField(max_length=140, blank=True)
+    leader = models.ForeignKey(
+        "users.User",
+        null=True,
+        on_delete=models.CASCADE,
+        related_name="tasks",
+    )
     track = models.ForeignKey(
         "contents.Track",
         on_delete=models.CASCADE,
+        related_name='tasks'
     )
 
     def __str__(self):
