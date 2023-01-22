@@ -1,3 +1,9 @@
+from drf_spectacular.utils import (
+    extend_schema_view,
+    extend_schema,
+    OpenApiParameter,
+    OpenApiTypes,
+)
 from rest_framework.views import APIView
 from rest_framework.status import HTTP_204_NO_CONTENT
 from rest_framework.response import Response
@@ -17,11 +23,20 @@ from .serializers import (
 
 
 class Followlists(APIView):
+
+    @extend_schema(
+        request=FollowlistListSerializer,
+        responses={201: FollowlistListSerializer},
+    )
     def get(self, request):
         all_followlists = Followlist.objects.all()
         serializer = FollowlistListSerializer(all_followlists, many=True)
         return Response(serializer.data)
 
+    @extend_schema(
+        request=FollowlistDetailSerializer,
+        responses={201: FollowlistDetailSerializer},
+    )
     def post(self, request):
         if request.user.is_authenticated:
             serializer = FollowlistDetailSerializer(data=request.data)
@@ -65,11 +80,19 @@ class FollowlistDetail(APIView):
         except Followlist.DoesNotExist:
             raise NotFound
 
+    @extend_schema(
+        request=FollowlistDetailSerializer,
+        responses={201: FollowlistDetailSerializer},
+    )
     def get(self, request, pk):
         followlist = self.get_object(pk)
         serializer = FollowlistDetailSerializer(followlist)
         return Response(serializer.data)
 
+    @extend_schema(
+        request=FollowlistDetailSerializer,
+        responses={201: FollowlistDetailSerializer},
+    )
     def put(self, request, pk):
         followlist = self.get_object(pk)
         if not request.user.is_authenticated:
@@ -110,6 +133,10 @@ class FollowlistDetail(APIView):
         else:
             return Response(serializer.errors)
 
+    @extend_schema(
+        request=FollowlistDetailSerializer,
+        responses={201: FollowlistDetailSerializer},
+    )
     def delete(self, request, pk):
         task = self.get_object(pk)
         if not request.user.is_authenticated:

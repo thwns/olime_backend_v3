@@ -1,3 +1,9 @@
+from drf_spectacular.utils import (
+    extend_schema_view,
+    extend_schema,
+    OpenApiParameter,
+    OpenApiTypes,
+)
 from rest_framework.views import APIView
 from rest_framework.status import HTTP_200_OK
 from rest_framework.exceptions import NotFound
@@ -12,6 +18,10 @@ class Followings(APIView):
 
     permission_classes = [IsAuthenticated]
 
+    @extend_schema(
+        request=FollowingSerializer,
+        responses={201: FollowingSerializer},
+    )
     def get(self, request):
         all_followings = Following.objects.filter(user=request.user)
         serializer = FollowingSerializer(
@@ -21,6 +31,10 @@ class Followings(APIView):
         )
         return Response(serializer.data)
 
+    @extend_schema(
+        request=FollowingSerializer,
+        responses={201: FollowingSerializer},
+    )
     def post(self, request):
         serializer = FollowingSerializer(data=request.data)
         if serializer.is_valid():
@@ -47,6 +61,10 @@ class FollowingDetail(APIView):
         except Following.DoesNotExist:
             raise NotFound
 
+    @extend_schema(
+        request=FollowingSerializer,
+        responses={201: FollowingSerializer},
+    )
     def get(self, request, pk):
         following = self.get_object(pk, request.user)
         serializer = FollowingSerializer(
@@ -55,11 +73,19 @@ class FollowingDetail(APIView):
         )
         return Response(serializer.data)
 
+    @extend_schema(
+        request=FollowingSerializer,
+        responses={201: FollowingSerializer},
+    )
     def delete(self, request, pk):
         following = self.get_object(pk, request.user)
         following.delete()
         return Response(status=HTTP_200_OK)
 
+    @extend_schema(
+        request=FollowingSerializer,
+        responses={201: FollowingSerializer},
+    )
     def put(self, request, pk):
         following = self.get_object(pk, request.user)
         serializer = FollowingSerializer(

@@ -1,3 +1,9 @@
+from drf_spectacular.utils import (
+    extend_schema_view,
+    extend_schema,
+    OpenApiParameter,
+    OpenApiTypes,
+)
 from rest_framework.views import APIView
 from rest_framework.status import HTTP_204_NO_CONTENT
 from rest_framework.response import Response
@@ -18,6 +24,10 @@ class Tasks(APIView):
         serializer = TaskListSerializer(all_tasks, many=True)
         return Response(serializer.data)
 
+    @extend_schema(
+        request=TaskDetailSerializer,
+        responses={201: TaskDetailSerializer},
+    )
     def post(self, request):
         if request.user.is_authenticated:
             serializer = TaskDetailSerializer(data=request.data)
@@ -52,11 +62,19 @@ class TaskDetail(APIView):
         except Task.DoesNotExist:
             raise NotFound
 
+    @extend_schema(
+        request=TaskDetailSerializer,
+        responses={201: TaskDetailSerializer},
+    )
     def get(self, request, pk):
         task = self.get_object(pk)
         serializer = TaskDetailSerializer(task)
         return Response(serializer.data)
 
+    @extend_schema(
+        request=TaskDetailSerializer,
+        responses={201: TaskDetailSerializer},
+    )
     def put(self, request, pk):
         task = self.get_object(pk)
         if not request.user.is_authenticated:
@@ -87,6 +105,10 @@ class TaskDetail(APIView):
         else:
             return Response(serializer.errors)
 
+    @extend_schema(
+        request=TaskDetailSerializer,
+        responses={201: TaskDetailSerializer},
+    )
     def delete(self, request, pk):
         task = self.get_object(pk)
         if not request.user.is_authenticated:

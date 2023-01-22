@@ -1,3 +1,9 @@
+from drf_spectacular.utils import (
+    extend_schema_view,
+    extend_schema,
+    OpenApiParameter,
+    OpenApiTypes,
+)
 from rest_framework.views import APIView
 from rest_framework.status import HTTP_200_OK
 from rest_framework.exceptions import NotFound
@@ -12,6 +18,10 @@ class Lovings(APIView):
 
     permission_classes = [IsAuthenticated]
 
+    @extend_schema(
+        request=LovingSerializer,
+        responses={201: LovingSerializer},
+    )
     def get(self, request):
         all_Lovings = Loving.objects.filter(user=request.user)
         serializer = LovingSerializer(
@@ -21,6 +31,10 @@ class Lovings(APIView):
         )
         return Response(serializer.data)
 
+    @extend_schema(
+        request=LovingSerializer,
+        responses={201: LovingSerializer},
+    )
     def post(self, request):
         serializer = LovingSerializer(data=request.data)
         if serializer.is_valid():
@@ -51,6 +65,10 @@ class LovingDetail(APIView):
         except Loving.DoesNotExist:
             raise NotFound
 
+    @extend_schema(
+        request=LovingSerializer,
+        responses={201: LovingSerializer},
+    )
     def get(self, request, pk):
         loving = self.get_object(pk, request.user)
         serializer = LovingSerializer(
@@ -59,11 +77,19 @@ class LovingDetail(APIView):
         )
         return Response(serializer.data)
 
+    @extend_schema(
+        request=LovingSerializer,
+        responses={201: LovingSerializer},
+    )
     def delete(self, request, pk):
         loving = self.get_object(pk, request.user)
         loving.delete()
         return Response(status=HTTP_200_OK)
 
+    @extend_schema(
+        request=LovingSerializer,
+        responses={201: LovingSerializer},
+    )
     def put(self, request, pk):
         loving = self.get_object(pk, request.user)
         serializer = LovingSerializer(

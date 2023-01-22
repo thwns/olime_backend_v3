@@ -1,3 +1,9 @@
+from drf_spectacular.utils import (
+    extend_schema_view,
+    extend_schema,
+    OpenApiParameter,
+    OpenApiTypes,
+)
 import jwt
 from django.conf import settings
 from django.contrib.auth import authenticate, login, logout
@@ -15,11 +21,19 @@ class Me(APIView):
 
     permission_classes = [IsAuthenticated]
 
+    @extend_schema(
+        request=serializers.PrivateUserSerializer,
+        responses={201: serializers.PrivateUserSerializer},
+    )
     def get(self, request):
         user = request.user
         serializer = serializers.PrivateUserSerializer(user)
         return Response(serializer.data)
 
+    @extend_schema(
+        request=serializers.PrivateUserSerializer,
+        responses={201: serializers.PrivateUserSerializer},
+    )
     def put(self, request):
         user = request.user
         serializer = serializers.PrivateUserSerializer(
@@ -36,6 +50,10 @@ class Me(APIView):
 
 
 class Users(APIView):
+    @extend_schema(
+        request=serializers.PrivateUserSerializer,
+        responses={201: serializers.PrivateUserSerializer},
+    )
     def post(self, request):
         password = request.data.get("password")
         if not password:
@@ -52,6 +70,10 @@ class Users(APIView):
 
 
 class PublicUser(APIView):
+    @extend_schema(
+        request=serializers.PrivateUserSerializer,
+        responses={201: serializers.PrivateUserSerializer},
+    )
     def get(self, request, username):
         try:
             user = User.objects.get(username=username)
@@ -65,6 +87,10 @@ class ChangePassword(APIView):
 
     permission_classes = [IsAuthenticated]
 
+    @extend_schema(
+        request=serializers.PrivateUserSerializer,
+        responses={201: serializers.PrivateUserSerializer},
+    )
     def put(self, request):
         user = request.user
         old_password = request.data.get("old_password")
@@ -80,6 +106,10 @@ class ChangePassword(APIView):
 
 
 class LogIn(APIView):
+    @extend_schema(
+        request=serializers.PrivateUserSerializer,
+        responses={201: serializers.PrivateUserSerializer},
+    )
     def post(self, request):
         username = request.data.get("username")
         password = request.data.get("password")
@@ -101,12 +131,20 @@ class LogOut(APIView):
 
     permission_classes = [IsAuthenticated]
 
+    @extend_schema(
+        request=serializers.PrivateUserSerializer,
+        responses={201: serializers.PrivateUserSerializer},
+    )
     def post(self, request):
         logout(request)
         return Response({"ok": "bye!"})
 
 
 class JWTLogIn(APIView):
+    @extend_schema(
+        request=serializers.PrivateUserSerializer,
+        responses={201: serializers.PrivateUserSerializer},
+    )
     def post(self, request):
         username = request.data.get("username")
         password = request.data.get("password")

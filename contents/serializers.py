@@ -31,7 +31,6 @@ class TrackSerializer(serializers.ModelSerializer):
     class Meta:
         model = Track
         fields = "__all__"
-        depth = 1
 
 
 class TrackDetailSerializer(serializers.ModelSerializer):

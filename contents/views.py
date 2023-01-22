@@ -1,3 +1,9 @@
+from drf_spectacular.utils import (
+    extend_schema_view,
+    extend_schema,
+    OpenApiParameter,
+    OpenApiTypes,
+)
 from django.conf import settings
 from rest_framework.views import APIView
 from django.db import transaction
@@ -24,13 +30,38 @@ from medias.serializers import PhotoSerializer
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 
-class Books(APIView):
+'''@extend_schema_view(
+    list=extend_schema(
+        parameters=[
+            OpenApiParameter(
+                'tags',
+                OpenApiTypes.STR,
+                description='Comma separated list of tag IDs to filter',
+            ),
+            OpenApiParameter(
+                'ingredients',
+                OpenApiTypes.STR,
+                description='Comma separated list of ingredient IDs to filter',
+            ),
+        ]
+    )
+)'''
 
+
+class Books(APIView):
+    @extend_schema(
+        request=BookSerializer,
+        responses={201: BookSerializer},
+    )
     def get(self, request):
         all_books = Book.objects.all()
         serializer = BookSerializer(all_books, many=True)
         return Response(serializer.data)
 
+    @extend_schema(
+        request=BookSerializer,
+        responses={201: BookSerializer},
+    )
     def post(self, request):
         serializer = BookSerializer(data=request.data)
         if serializer.is_valid():
@@ -47,11 +78,19 @@ class BookDetail(APIView):
         except Book.DoesNotExist:
             raise NotFound
 
+    @extend_schema(
+        request=BookSerializer,
+        responses={201: BookSerializer},
+    )
     def get(self, request, pk):
         book = self.get_object(pk)
         serializer = BookSerializer(book)
         return Response(serializer.data)
 
+    @extend_schema(
+        request=BookSerializer,
+        responses={201: BookSerializer},
+    )
     def put(self, request, pk):
         book = self.get_object(pk)
         serializer = BookSerializer(
@@ -67,6 +106,10 @@ class BookDetail(APIView):
         else:
             return Response(serializer.errors)
 
+    @extend_schema(
+        request=BookSerializer,
+        responses={201: BookSerializer},
+    )
     def delete(self, request, pk):
         book = self.get_object(pk)
         book.delete()
@@ -77,11 +120,19 @@ class Tracks(APIView):
 
     permission_classes = [IsAuthenticatedOrReadOnly]
 
+    @extend_schema(
+        request=TrackListSerializer,
+        responses={201: TrackListSerializer},
+    )
     def get(self, request):
         all_tracks = Track.objects.all()
         serializer = TrackSerializer(all_tracks, many=True)
         return Response(serializer.data)
 
+    @extend_schema(
+        request=TrackSerializer,
+        responses={201: TrackSerializer},
+    )
     def post(self, request):
         serializer = TrackSerializer(data=request.data)
         if serializer.is_valid():
@@ -98,11 +149,19 @@ class TrackDetail(APIView):
         except Track.DoesNotExist:
             raise NotFound
 
+    @extend_schema(
+        request=TrackSerializer,
+        responses={201: TrackSerializer},
+    )
     def get(self, request, pk):
         track = self.get_object(pk)
         serializer = TrackSerializer(track)
         return Response(serializer.data)
 
+    @extend_schema(
+        request=TrackSerializer,
+        responses={201: TrackSerializer},
+    )
     def put(self, request, pk):
         track = self.get_object(pk)
         serializer = TrackSerializer(
@@ -118,6 +177,10 @@ class TrackDetail(APIView):
         else:
             return Response(serializer.errors)
 
+    @extend_schema(
+        request=TrackSerializer,
+        responses={201: TrackSerializer},
+    )
     def delete(self, request, pk):
         track = self.get_object(pk)
         track.delete()
@@ -125,11 +188,19 @@ class TrackDetail(APIView):
 
 
 class Lectures(APIView):
+    @extend_schema(
+        request=LectureSerializer,
+        responses={201: LectureSerializer},
+    )
     def get(self, request):
         all_lectures = Lecture.objects.all()
         serializer = LectureSerializer(all_lectures, many=True)
         return Response(serializer.data)
 
+    @extend_schema(
+        request=LectureSerializer,
+        responses={201: LectureSerializer},
+    )
     def post(self, request):
         serializer = LectureSerializer(data=request.data)
         if serializer.is_valid():
@@ -146,11 +217,19 @@ class LectureDetail(APIView):
         except Lecture.DoesNotExist:
             raise NotFound
 
+    @extend_schema(
+        request=LectureSerializer,
+        responses={201: LectureSerializer},
+    )
     def get(self, request, pk):
         lecture = self.get_object(pk)
         serializer = LectureSerializer(lecture)
         return Response(serializer.data)
 
+    @extend_schema(
+        request=LectureSerializer,
+        responses={201: LectureSerializer},
+    )
     def put(self, request, pk):
         lecture = self.get_object(pk)
         serializer = LectureSerializer(
@@ -163,6 +242,10 @@ class LectureDetail(APIView):
         else:
             return Response(serializer.errors)
 
+    @extend_schema(
+        request=LectureSerializer,
+        responses={201: LectureSerializer},
+    )
     def delete(self, request, pk):
         lecture = self.get_object(pk)
         lecture.delete()
@@ -173,6 +256,10 @@ class Contents(APIView):
 
     permission_classes = [IsAuthenticatedOrReadOnly]
 
+    @extend_schema(
+        request=ContentListSerializer,
+        responses={201: ContentListSerializer},
+    )
     def get(self, request):
         all_contents = Content.objects.all()
         serializer = ContentListSerializer(
@@ -182,6 +269,10 @@ class Contents(APIView):
         )
         return Response(serializer.data)
 
+    @extend_schema(
+        request=ContentDetailSerializer,
+        responses={201: ContentDetailSerializer},
+    )
     def post(self, request):
         serializer = ContentDetailSerializer(data=request.data)
         if serializer.is_valid():
@@ -225,6 +316,10 @@ class ContentDetail(APIView):
         except Content.DoesNotExist:
             raise NotFound
 
+    @extend_schema(
+        request=ContentDetailSerializer,
+        responses={201: ContentDetailSerializer},
+    )
     def get(self, request, pk):
         content = self.get_object(pk)
         serializer = ContentDetailSerializer(
@@ -233,6 +328,10 @@ class ContentDetail(APIView):
         )
         return Response(serializer.data)
 
+    @extend_schema(
+        request=ContentDetailSerializer,
+        responses={201: ContentDetailSerializer},
+    )
     def put(self, request, pk):
         content = self.get_object(pk)
         if content.leader != request.user:
@@ -293,6 +392,10 @@ class ContentDetail(APIView):
         else:
             return Response(serializer.errors)
 
+    @extend_schema(
+        request=ContentDetailSerializer,
+        responses={201: ContentDetailSerializer},
+    )
     def delete(self, request, pk):
         content = self.get_object(pk)
         if content.leader != request.user:
@@ -311,6 +414,10 @@ class ContentReviews(APIView):
         except Content.DoesNotExist:
             raise NotFound
 
+    @extend_schema(
+        request=ReviewSerializer,
+        responses={201: ReviewSerializer},
+    )
     def get(self, request, pk):
         try:
             page = request.query_params.get("page", 1)
@@ -327,6 +434,10 @@ class ContentReviews(APIView):
         )
         return Response(serializer.data)
 
+    @extend_schema(
+        request=ReviewSerializer,
+        responses={201: ReviewSerializer},
+    )
     def post(self, request, pk):
         serializer = ReviewSerializer(data=request.data)
         if serializer.is_valid():
@@ -348,6 +459,10 @@ class ContentPhotos(APIView):
         except Content.DoesNotExist:
             raise NotFound
 
+    @extend_schema(
+        request=PhotoSerializer,
+        responses={201: PhotoSerializer},
+    )
     def post(self, request, pk):
         content = self.get_object(pk)
         if request.user != content.leader:
