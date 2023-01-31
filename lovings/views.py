@@ -41,14 +41,14 @@ class Lovings(APIView):
             loving = serializer.save(
                 user=request.user,
             )
-            tracks = request.data.get("track")
+            tracks = request.data.get("tracks")
             for track_pk in tracks:
                 track = Track.objects.get(pk=track_pk)
-                loving.track.add(track)
-            contents = request.data.get("content")
+                loving.tracks.add(track)
+            contents = request.data.get("contents")
             for content_pk in contents:
                 content = Content.objects.get(pk=content_pk)
-                loving.content.add(content)
+                loving.contents.add(content)
             serializer = LovingSerializer(loving)
             return Response(serializer.data)
         else:

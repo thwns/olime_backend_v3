@@ -9,6 +9,7 @@ class TinyUserSerializer(ModelSerializer):
             "name",
             "avatar",
             "username",
+            "grade",
         )
 
 
@@ -25,4 +26,5 @@ class PrivateUserSerializer(ModelSerializer):
             "last_name",
             "groups",
             "user_permissions",
+            "grade",
         )

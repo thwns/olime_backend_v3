@@ -5,11 +5,11 @@ from .models import Loving
 
 class LovingSerializer(serializers.ModelSerializer):
 
-    track = TrackListSerializer(
+    tracks = TrackListSerializer(
         many=True,
         read_only=True,
     )
-    content = ContentListSerializer(
+    contents = ContentListSerializer(
         many=True,
         read_only=True,
     )
@@ -19,6 +19,6 @@ class LovingSerializer(serializers.ModelSerializer):
         fields = (
             "pk",
             "name",
-            "track",
-            "content",
+            "tracks",
+            "contents",
         )

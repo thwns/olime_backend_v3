@@ -43,25 +43,33 @@ class TrackDetailSerializer(serializers.ModelSerializer):
     rating = serializers.SerializerMethodField()
     is_leader = serializers.SerializerMethodField()
     is_followed = serializers.SerializerMethodField()
-    # followers_num = serializers.SerializerMethodField()
+    followers_num = serializers.SerializerMethodField()
     photos = PhotoSerializer(many=True, read_only=True)
 
     class Meta:
         model = Track
-        fields = "__all__"
+        fields = (
+            "leader",
+            "category",
+            "photos",
+            "rating",
+            "is_leader",
+            "is_followed",
+            "followers_num",
+        )
 
-    def get_rating(self, track):
-        return track.rating()
+    def get_rating(self, tracks):
+        return tracks.rating()
 
-    def get_is_leader(self, track):
+    def get_is_leader(self, tracks):
         request = self.context["request"]
-        return track.leader == request.user
+        return tracks.leader == request.user
 
-    def get_is_followed(self, track):
+    def get_is_followed(self, tracks):
         request = self.context["request"]
         return Following.objects.filter(
             user=request.user,
-            track__pk=track.pk,
+            track__pk=tracks.pk,
         ).exists()
 
     '''def get_followers_num(self, track):
@@ -95,12 +103,22 @@ class ContentDetailSerializer(serializers.ModelSerializer):
     )
     rating = serializers.SerializerMethodField()
     is_leader = serializers.SerializerMethodField()
-    is_followed = serializers.SerializerMethodField()
+    # is_followed = serializers.SerializerMethodField()
     photos = PhotoSerializer(many=True, read_only=True)
 
     class Meta:
         model = Content
-        fields = "__all__"
+        fields = (
+            "leader",
+            "books",
+            "lectures",
+            "category",
+            "tracks",
+            "rating",
+            "is_leader",
+            # "is_followed",
+            "photos",
+        )
 
     def get_rating(self, content):
         return content.rating()
@@ -109,12 +127,12 @@ class ContentDetailSerializer(serializers.ModelSerializer):
         request = self.context["request"]
         return content.leader == request.user
 
-    def get_is_followed(self, track):
+    '''def get_is_followed(self, track):
         request = self.context["request"]
         return Following.objects.filter(
             user=request.user,
             track__pk=track.pk,
-        ).exists()
+        ).exists()'''
 
 
 class ContentListSerializer(serializers.ModelSerializer):

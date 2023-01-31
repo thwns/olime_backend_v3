@@ -38,15 +38,24 @@ class Followings(APIView):
     def post(self, request):
         serializer = FollowingSerializer(data=request.data)
         if serializer.is_valid():
-            following = serializer.save(
-                user=request.user,
-            )
-            tracks = request.data.get("tracks")
-            for track_pk in tracks:
-                track = Track.objects.get(pk=track_pk)
-                following.tracks.add(track)
-            serializer = FollowingSerializer(following)
-            return Response(serializer.data)
+            try:
+                with transaction.atomic():
+                    following = serializer.save(
+                        user=request.user,
+                    )
+                    tracks = request.data.get("tracks")
+                    for track_pk in tracks:
+                        try:
+                            track = Track.objects.get(pk=track_pk)
+                        except Track.DoesNotExist:
+                            following.delete()
+                            raise ParseError(
+                                f"Track with id {track_pk} not found")
+                        following.tracks.add(track)
+                    serializer = FollowingSerializer(following)
+                    return Response(serializer.data)
+            except Exception:
+                raise ParseError("Track not found")
         else:
             return Response(serializer.errors)
 
@@ -117,11 +126,11 @@ class FollowingToggle(APIView):
         except Track.DoesNotExist:
             raise NotFound
 
-    def put(self, request, pk, room_pk):
+    def put(self, request, pk, track_pk):
         following = self.get_list(pk, request.user)
-        track = self.get_track(track_pk)
-        if following.tracks.filter(pk=track.pk).exists():
-            following.tracks.remove(track)
+        track_list = self.get_track(track_pk)
+        if following.track.filter(pk=track.pk).exists():
+            following.track.remove(track_list)
         else:
-            following.tracks.add(track)
+            following.track.add(track_list)
         return Response(status=HTTP_200_OK)

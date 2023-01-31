@@ -14,11 +14,11 @@ class Loving(CommonModel):
         on_delete=models.CASCADE,
         related_name="lovings",
     )
-    content = models.ManyToManyField(
+    contents = models.ManyToManyField(
         "contents.Content",
         related_name="lovings",
     )
-    track = models.ManyToManyField(
+    tracks = models.ManyToManyField(
         "contents.Track",
         related_name="lovings",
     )

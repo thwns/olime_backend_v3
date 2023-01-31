@@ -50,7 +50,7 @@ class Followlists(APIView):
                     raise ParseError("Track not found")
                 try:
                     with transaction.atomic():
-                        followllist = serializer.save(
+                        followlist = serializer.save(
                             user=request.user,
                             track=track,
                         )

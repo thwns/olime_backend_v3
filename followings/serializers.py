@@ -5,7 +5,7 @@ from .models import Following
 
 class FollowingSerializer(serializers.ModelSerializer):
 
-    track = TrackListSerializer(
+    tracks = TrackListSerializer(
         many=True,
         read_only=True,
     )
@@ -15,5 +15,5 @@ class FollowingSerializer(serializers.ModelSerializer):
         fields = (
             "pk",
             "name",
-            "track",
+            "tracks",
         )

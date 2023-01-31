@@ -16,7 +16,7 @@ class Following(CommonModel):
         on_delete=models.CASCADE,
         related_name="followings",
     )
-    track = models.ManyToManyField(
+    tracks = models.ManyToManyField(
         "contents.Track",
         related_name="followings",
     )
