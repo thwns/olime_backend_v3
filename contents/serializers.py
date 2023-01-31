@@ -159,5 +159,14 @@ class ContentListSerializer(serializers.ModelSerializer):
         return content.rating()
 
     def get_is_leader(self, content):
-        request = self.context["request"]
-        return content.leader == request.user
+        request = self.context.get("request")
+        if request:
+            return content.leader == request.user
+        return False
+
+
+class ContentShowSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Content
+        fields = "__all__"

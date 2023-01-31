@@ -22,6 +22,7 @@ from .serializers import (
     LectureSerializer,
     ContentListSerializer,
     ContentDetailSerializer,
+    ContentShowSerializer,
     TrackListSerializer,
     TrackSerializer
 )
@@ -270,8 +271,8 @@ class Contents(APIView):
         return Response(serializer.data)
 
     @extend_schema(
-        request=ContentDetailSerializer,
-        responses={201: ContentDetailSerializer},
+        request=ContentShowSerializer,
+        responses={201: ContentShowSerializer},
     )
     def post(self, request):
         serializer = ContentDetailSerializer(data=request.data)
