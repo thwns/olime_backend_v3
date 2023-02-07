@@ -23,8 +23,6 @@ from django.conf.urls.static import static
 from django.conf import settings
 from strawberry.django.views import GraphQLView
 from .schema import schema
-from django.views.static import serve
-from django.urls import re_path
 
 
 urlpatterns = [

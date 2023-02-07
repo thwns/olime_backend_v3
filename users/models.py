@@ -14,7 +14,7 @@ class User(AbstractUser):
 
     first_name = models.CharField(max_length=150, editable=False)
     last_name = models.CharField(max_length=150, editable=False)
-    avatar = models.PositiveIntegerField(null=True, blank=True)
+    avatar = models.CharField(max_length=20, null=True)
     name = models.CharField(max_length=150, default="",)
     is_host = models.BooleanField(default=False,)
     gender = models.CharField(max_length=10, choices=GenderChoices.choices,)
