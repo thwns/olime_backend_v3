@@ -36,6 +36,11 @@ class Review(CommonModel):
     kind = models.CharField(max_length=30,)
     payload = models.TextField(blank=True,)
     rating = models.PositiveIntegerField()
+    rating_1 = models.PositiveIntegerField()
+    rating_2 = models.PositiveIntegerField()
+    rating_3 = models.PositiveIntegerField()
+    rating_4 = models.PositiveIntegerField()
+    rating_5 = models.PositiveIntegerField()
 
     def __str__(self) -> str:
         return f"{self.user} / {self.rating}⭐️"

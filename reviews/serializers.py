@@ -11,6 +11,12 @@ class ReviewSerializer(serializers.ModelSerializer):
         model = Review
         fields = (
             "user",
+            "kind",
             "payload",
             "rating",
+            "rating_1",
+            "rating_2",
+            "rating_3",
+            "rating_4",
+            "rating_5",
         )

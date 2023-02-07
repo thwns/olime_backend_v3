@@ -281,30 +281,24 @@ class Contents(APIView):
                 with transaction.atomic():
                     content = serializer.save(leader=request.user)
                     tracks = request.data.get("tracks")
-                    print("good")
                     for track_pk in tracks:
                         track = Track.objects.get(pk=track_pk)
                         content.tracks.add(track)
                     books = request.data.get("books")
-                    print("good")
                     for book_pk in books:
                         book = Book.objects.get(pk=book_pk)
                         content.books.add(book)
                     categories = request.data.get("category")
-                    print("good")
                     for category_pk in categories:
                         category_temp = Category.objects.get(
                             pk=category_pk)
                         content.category.add(category_temp)
                     lectures = request.data.get("lectures")
-                    print("good")
                     for lecture_pk in lectures:
                         lecture = Lecture.objects.get(pk=lecture_pk)
                         content.lectures.add(lecture)
                     serializer = ContentShowSerializer(content)
-                    print("good")
                     return Response(serializer.data)
-                    print("good")
             except Exception:
                 raise ParseError(
                     "Category or Book or Lecture or Track not found")

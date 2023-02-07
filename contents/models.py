@@ -11,8 +11,8 @@ class Content(CommonModel):
         LECTURE = ("lecture", "Lecture")
 
     name = models.CharField(max_length=140,)
-    image = models.ImageField(blank=True,)
     types = models.CharField(max_length=8, choices=TypeChoices.choices,)
+    image = models.ImageField(blank=True,)
     description = models.TextField(blank=True,)
     author = models.CharField(max_length=140,)
     company = models.CharField(max_length=140,)
