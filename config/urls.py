@@ -23,8 +23,6 @@ from django.conf.urls.static import static
 from django.conf import settings
 from strawberry.django.views import GraphQLView
 from .schema import schema
-from django.views.static import serve
-from django.urls import re_path
 
 
 urlpatterns = [
@@ -44,9 +42,4 @@ urlpatterns = [
     path("api/v1/followlists/", include("followlists.urls")),
     path("api/v1/users/", include("users.urls")),
     path("graphql", GraphQLView.as_view(schema=schema)),
-]  # + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-urlpatterns += [
-    re_path(r'^user-uploads/(?P<path>.*)$', serve, {
-        'document_root': settings.MEDIA_ROOT,
-    }),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

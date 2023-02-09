@@ -44,14 +44,15 @@ class TrackDetailSerializer(serializers.ModelSerializer):
     is_leader = serializers.SerializerMethodField()
     is_followed = serializers.SerializerMethodField()
     followers_num = serializers.SerializerMethodField()
-    photos = PhotoSerializer(many=True, read_only=True)
+    # photos = PhotoSerializer(many=True, read_only=True)
 
     class Meta:
         model = Track
         fields = (
             "leader",
             "category",
-            "photos",
+            "image",
+            # "photos",
             "rating",
             "is_leader",
             "is_followed",
@@ -104,7 +105,7 @@ class ContentDetailSerializer(serializers.ModelSerializer):
     rating = serializers.SerializerMethodField()
     is_leader = serializers.SerializerMethodField()
     # is_followed = serializers.SerializerMethodField()
-    photos = PhotoSerializer(many=True, read_only=True)
+    # photos = PhotoSerializer(many=True, read_only=True)
 
     class Meta:
         model = Content
@@ -116,7 +117,8 @@ class ContentDetailSerializer(serializers.ModelSerializer):
             "tracks",
             "rating",
             "is_leader",
-            "photos",
+            # "photos",
+            "image",
             # "is_followed",
         )
 
@@ -139,7 +141,7 @@ class ContentListSerializer(serializers.ModelSerializer):
 
     rating = serializers.SerializerMethodField()
     is_leader = serializers.SerializerMethodField()
-    photos = PhotoSerializer(many=True, read_only=True)
+    # photos = PhotoSerializer(many=True, read_only=True)
 
     class Meta:
         model = Content
@@ -147,11 +149,12 @@ class ContentListSerializer(serializers.ModelSerializer):
             "pk",
             "name",
             "types",
+            "image",
             "author",
             "company",
             "rating",
             "is_leader",
-            "photos",
+            # "photos",
         )
 
     def get_rating(self, content):
