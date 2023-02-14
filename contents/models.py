@@ -12,7 +12,7 @@ class Content(CommonModel):
 
     name = models.CharField(max_length=140,)
     types = models.CharField(max_length=8, choices=TypeChoices.choices,)
-    image = models.URLField(max_length=200, blank=True,)
+    image = models.ImageField(blank=True,)
     description = models.TextField(blank=True,)
     author = models.CharField(max_length=140,)
     company = models.CharField(max_length=140,)
@@ -65,7 +65,7 @@ class Track(CommonModel):
     """ Model Definition for Tracks """
 
     name = models.CharField(max_length=140)
-    image = models.URLField(max_length=200, blank=True,)
+    image = models.ImageField(blank=True,)
     description = models.TextField(blank=True)
     leader = models.ForeignKey(
         "users.User",
@@ -105,7 +105,7 @@ class Book(CommonModel):
     title = models.CharField(max_length=140)
     sub_title = models.CharField(max_length=140)
     author = models.CharField(max_length=140)
-    image = models.URLField(max_length=200, blank=True,)
+    image = models.ImageField(blank=True,)
     isbn = models.CharField(max_length=140)
     company = models.CharField(max_length=140)
 
@@ -122,7 +122,7 @@ class Lecture(CommonModel):
     title = models.CharField(max_length=140)
     sub_title = models.CharField(max_length=140)
     author = models.CharField(max_length=140)
-    image = models.URLField(max_length=200, blank=True,)
+    image = models.ImageField(blank=True,)
     company = models.CharField(max_length=140)
     books = models.ManyToManyField(
         "contents.Book",
