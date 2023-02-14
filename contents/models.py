@@ -10,9 +10,10 @@ class Content(CommonModel):
         BOOK = ("book", "Book")
         LECTURE = ("lecture", "Lecture")
 
+    content_parent = models.CharField(max_length=140, null=True,)
     name = models.CharField(max_length=140,)
     types = models.CharField(max_length=8, choices=TypeChoices.choices,)
-    image = models.ImageField(blank=True,)
+    image = models.URLField(blank=True, null=True,)
     description = models.TextField(blank=True,)
     author = models.CharField(max_length=140,)
     company = models.CharField(max_length=140,)
@@ -59,13 +60,17 @@ class Content(CommonModel):
                 total_rating += review["rating"]
             return round(total_rating / count, 2)
 
+    def lovers_num(content):
+        count = content.lovings.count()
+        return count
+
 
 class Track(CommonModel):
 
     """ Model Definition for Tracks """
 
     name = models.CharField(max_length=140)
-    image = models.ImageField(blank=True,)
+    image = models.URLField(blank=True, null=True,)
     description = models.TextField(blank=True)
     leader = models.ForeignKey(
         "users.User",
@@ -95,6 +100,10 @@ class Track(CommonModel):
         count = track.followings.count()
         return count
 
+    def lovers_num(track):
+        count = track.lovings.count()
+        return count
+
 
 class Book(CommonModel):
 
@@ -105,7 +114,7 @@ class Book(CommonModel):
     title = models.CharField(max_length=140)
     sub_title = models.CharField(max_length=140)
     author = models.CharField(max_length=140)
-    image = models.ImageField(blank=True,)
+    image = models.URLField(blank=True, null=True,)
     isbn = models.CharField(max_length=140)
     company = models.CharField(max_length=140)
 
@@ -122,7 +131,7 @@ class Lecture(CommonModel):
     title = models.CharField(max_length=140)
     sub_title = models.CharField(max_length=140)
     author = models.CharField(max_length=140)
-    image = models.ImageField(blank=True,)
+    image = models.URLField(blank=True, null=True,)
     company = models.CharField(max_length=140)
     books = models.ManyToManyField(
         "contents.Book",

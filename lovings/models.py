@@ -17,11 +17,22 @@ class Loving(CommonModel):
     contents = models.ManyToManyField(
         "contents.Content",
         related_name="lovings",
+        blank=True,
     )
     tracks = models.ManyToManyField(
         "contents.Track",
         related_name="lovings",
+        blank=True,
     )
+    reviews = models.ManyToManyField(
+        "reviews.Review",
+        related_name="lovings",
+        blank=True,
+    )
+    '''replys = models.ManyToManyField(
+        "replys.Reply",
+        related_name="lovings",
+    )'''
 
     def __str__(self):
         return f"{self.name} loving for: {self.user}"

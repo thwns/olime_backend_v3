@@ -44,3 +44,7 @@ class Review(CommonModel):
 
     def __str__(self) -> str:
         return f"{self.user} / {self.rating}⭐️"
+
+    def lovers_num(review):
+        count = review.lovings.count()
+        return count

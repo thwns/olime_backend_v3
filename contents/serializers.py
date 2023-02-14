@@ -41,28 +41,29 @@ class TrackDetailSerializer(serializers.ModelSerializer):
         many=True
     )
     rating = serializers.SerializerMethodField()
-    is_leader = serializers.SerializerMethodField()
-    is_followed = serializers.SerializerMethodField()
+    # is_leader = serializers.SerializerMethodField()
+    # is_followed = serializers.SerializerMethodField()
     followers_num = serializers.SerializerMethodField()
-    photos = PhotoSerializer(many=True, read_only=True)
+    lovers_num = serializers.SerializerMethodField()
+    # photos = PhotoSerializer(many=True, read_only=True)
 
     class Meta:
         model = Track
         fields = (
             "leader",
             "category",
-            "photos",
             "rating",
-            "is_leader",
-            "is_followed",
+            # "is_leader",
+            # "is_followed",
             "followers_num",
+            "lovers_num",
         )
 
     def get_rating(self, tracks):
         return tracks.rating()
 
-    def get_is_leader(self, tracks):
-        request = self.context["request"]
+    '''def get_is_leader(self, tracks):
+        request = self.context.get["request"]
         return tracks.leader == request.user
 
     def get_is_followed(self, tracks):
@@ -70,10 +71,13 @@ class TrackDetailSerializer(serializers.ModelSerializer):
         return Following.objects.filter(
             user=request.user,
             track__pk=tracks.pk,
-        ).exists()
+        ).exists()'''
 
-    '''def get_followers_num(self, track):
-        return track.followers_num()'''
+    def get_followers_num(self, track):
+        return track.followers_num()
+
+    def get_lovers_num(self, track):
+        return track.lovers_num()
 
 
 class LectureSerializer(serializers.ModelSerializer):
@@ -102,30 +106,36 @@ class ContentDetailSerializer(serializers.ModelSerializer):
         many=True
     )
     rating = serializers.SerializerMethodField()
-    is_leader = serializers.SerializerMethodField()
+    # is_leader = serializers.SerializerMethodField()
     # is_followed = serializers.SerializerMethodField()
-    photos = PhotoSerializer(many=True, read_only=True)
+    # photos = PhotoSerializer(many=True, read_only=True)
+    lovers_num = serializers.SerializerMethodField()
 
     class Meta:
         model = Content
         fields = (
+            "content_parent",
             "leader",
             "books",
             "lectures",
             "category",
             "tracks",
             "rating",
-            "is_leader",
-            "photos",
+            # "is_leader",
+            # "photos",
+            "lovers_num",
             # "is_followed",
         )
 
     def get_rating(self, content):
         return content.rating()
 
-    def get_is_leader(self, content):
+    '''def get_is_leader(self, content):
         request = self.context["request"]
-        return content.leader == request.user
+        return content.leader == request.user'''
+
+    def get_lovers_num(self, content):
+        return content.lovers_num()
 
     '''def get_is_followed(self, track):
         request = self.context["request"]
@@ -145,6 +155,7 @@ class ContentListSerializer(serializers.ModelSerializer):
         model = Content
         fields = (
             "pk",
+            "content_parent",
             "name",
             "types",
             "author",

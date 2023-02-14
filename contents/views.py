@@ -24,7 +24,8 @@ from .serializers import (
     ContentDetailSerializer,
     ContentShowSerializer,
     TrackListSerializer,
-    TrackSerializer
+    TrackSerializer,
+    TrackDetailSerializer,
 )
 from reviews.serializers import ReviewSerializer
 from medias.serializers import PhotoSerializer
@@ -151,21 +152,21 @@ class TrackDetail(APIView):
             raise NotFound
 
     @extend_schema(
-        request=TrackSerializer,
-        responses={201: TrackSerializer},
+        request=TrackDetailSerializer,
+        responses={201: TrackDetailSerializer},
     )
     def get(self, request, pk):
         track = self.get_object(pk)
-        serializer = TrackSerializer(track)
+        serializer = TrackDetailSerializer(track)
         return Response(serializer.data)
 
     @extend_schema(
-        request=TrackSerializer,
-        responses={201: TrackSerializer},
+        request=TrackDetailSerializer,
+        responses={201: TrackDetailSerializer},
     )
     def put(self, request, pk):
         track = self.get_object(pk)
-        serializer = TrackSerializer(
+        serializer = TrackDetailSerializer(
             track,
             data=request.data,
             partial=True,

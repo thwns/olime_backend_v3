@@ -10,6 +10,7 @@ from rest_framework.exceptions import NotFound
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from contents.models import Track, Content
+from reviews.models import Review
 from .models import Loving
 from .serializers import LovingSerializer
 
@@ -49,6 +50,10 @@ class Lovings(APIView):
             for content_pk in contents:
                 content = Content.objects.get(pk=content_pk)
                 loving.contents.add(content)
+            reviews = request.data.get("reviews")
+            for review_pk in reviews:
+                review = Review.objects.get(pk=review_pk)
+                loving.reviews.add(review)
             serializer = LovingSerializer(loving)
             return Response(serializer.data)
         else:
