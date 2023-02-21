@@ -149,7 +149,6 @@ class ContentListSerializer(serializers.ModelSerializer):
 
     rating = serializers.SerializerMethodField()
     is_leader = serializers.SerializerMethodField()
-    photos = PhotoSerializer(many=True, read_only=True)
 
     class Meta:
         model = Content
@@ -162,7 +161,7 @@ class ContentListSerializer(serializers.ModelSerializer):
             "company",
             "rating",
             "is_leader",
-            "photos",
+            "image",
         )
 
     def get_rating(self, content):

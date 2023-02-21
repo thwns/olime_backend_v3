@@ -11,6 +11,7 @@ class Content(CommonModel):
         LECTURE = ("lecture", "Lecture")
 
     content_parent = models.CharField(max_length=140, null=True,)
+    # 만일 책 이름이 쎈 고등수학(상), 쎈 고등수학(하)라면 이를 좀합해서 부르는 쎈
     name = models.CharField(max_length=140,)
     types = models.CharField(max_length=8, choices=TypeChoices.choices,)
     image = models.URLField(blank=True, null=True,)

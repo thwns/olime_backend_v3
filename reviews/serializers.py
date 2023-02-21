@@ -21,6 +21,8 @@ class ReviewSerializer(serializers.ModelSerializer):
             "rating_4",
             "rating_5",
             "lovers_num",
+            "created_at",
+            "updated_at",
         )
 
     def get_lovers_num(self, review):

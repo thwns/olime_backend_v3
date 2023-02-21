@@ -15,7 +15,7 @@ class WordFilter(admin.SimpleListFilter):
             ("awesome", "Awesome"),
         ]
 
-    def queryset(self, request, reviews):
+    def queryset(self, request, replys):
         word = self.value()
         if word:
             return replys.filter(payload__contains=word)
@@ -24,11 +24,10 @@ class WordFilter(admin.SimpleListFilter):
 
 
 @admin.register(Reply)
-class ReviewAdmin(admin.ModelAdmin):
+class ReplyAdmin(admin.ModelAdmin):
 
     list_display = (
         "__str__",
-        "kind",
         "payload",
     )
     list_filter = (
