@@ -18,7 +18,6 @@ class PrivateUserSerializer(ModelSerializer):
     class Meta:
         model = User
         exclude = (
-            "pk",
             "password",
             "is_superuser",
             "id",
