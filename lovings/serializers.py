@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from contents.serializers import TrackListSerializer, ContentListSerializer
 from reviews.serializers import ReviewSerializer
-# from replys.serializer import ReplySerializer
+from replys.serializers import ReplySerializer
 from .models import Loving
 
 
@@ -19,10 +19,10 @@ class LovingSerializer(serializers.ModelSerializer):
         many=True,
         read_only=True,
     )
-    '''replys = ReplySerializer(
+    replys = ReplySerializer(
         many=True,
         read_only=True,
-    )'''
+    )
 
     class Meta:
         model = Loving
@@ -32,5 +32,5 @@ class LovingSerializer(serializers.ModelSerializer):
             "tracks",
             "contents",
             "reviews",
-            # "replys",
+            "replys",
         )

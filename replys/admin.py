@@ -34,5 +34,4 @@ class ReplyAdmin(admin.ModelAdmin):
         WordFilter,
         "rating",
         "user__is_host",
-        "track__category",
     )

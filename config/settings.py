@@ -65,7 +65,7 @@ CUSTOM_APPS = [
     "followings.apps.FollowingsConfig",
     "medias.apps.MediasConfig",
     "lovings.apps.LovingsConfig",
-    # "replys.apps.ReplysConfig",
+    "replys.apps.ReviewsConfig",
 ]
 
 SYSTEM_APPS = [

@@ -11,6 +11,7 @@ class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
         fields = (
+            "pk",
             "user",
             "kind",
             "payload",
@@ -21,9 +22,13 @@ class ReviewSerializer(serializers.ModelSerializer):
             "rating_4",
             "rating_5",
             "lovers_num",
+            "repliers_num",
             "created_at",
             "updated_at",
         )
 
     def get_lovers_num(self, review):
         return review.lovers_num()
+
+    def get_repliers_num(self, review):
+        return review.repliers_num()

@@ -184,7 +184,7 @@ class ContentReviews(APIView):
             )
             serializer = ReviewSerializer(review)
             return Response(serializer.data)'''
-'''from drf_spectacular.utils import (
+from drf_spectacular.utils import (
     extend_schema_view,
     extend_schema,
     OpenApiParameter,
@@ -201,8 +201,9 @@ from rest_framework.exceptions import (
     PermissionDenied,
 )
 from rest_framework.response import Response
-from .models import Reply
-from .serializers import (
+from replys.models import Reply
+from .models import Review
+from replys.serializers import (
     ReplySerializer,
 )
 from reviews.serializers import ReviewSerializer
@@ -251,4 +252,4 @@ class ReviewReplys(APIView):
                 review=self.get_object(pk),
             )
             serializer = ReplySerializer(reply)
-            return Response(serializer.data)'''
+            return Response(serializer.data)

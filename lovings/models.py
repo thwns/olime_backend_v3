@@ -29,10 +29,10 @@ class Loving(CommonModel):
         related_name="lovings",
         blank=True,
     )
-    '''replys = models.ManyToManyField(
+    replys = models.ManyToManyField(
         "replys.Reply",
         related_name="lovings",
-    )'''
+    )
 
     def __str__(self):
         return f"{self.name} loving for: {self.user}"

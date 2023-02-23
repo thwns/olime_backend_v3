@@ -48,3 +48,7 @@ class Review(CommonModel):
     def lovers_num(review):
         count = review.lovings.count()
         return count
+
+    def repliers_num(review):
+        count = review.replys.count()
+        return count

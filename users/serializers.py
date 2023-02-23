@@ -6,6 +6,7 @@ class TinyUserSerializer(ModelSerializer):
     class Meta:
         model = User
         fields = (
+            "pk",
             "name",
             "avatar",
             "username",
@@ -17,6 +18,7 @@ class PrivateUserSerializer(ModelSerializer):
     class Meta:
         model = User
         exclude = (
+            "pk",
             "password",
             "is_superuser",
             "id",

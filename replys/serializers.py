@@ -11,6 +11,7 @@ class ReplySerializer(serializers.ModelSerializer):
     class Meta:
         model = Reply
         fields = (
+            "pk",
             "user",
             "payload",
             "lovers_num",
