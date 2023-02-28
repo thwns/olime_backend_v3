@@ -26,8 +26,12 @@ class Me(APIView):
         responses={201: serializers.PrivateUserSerializer},
     )
     def get(self, request):
-        user = request.user
-        serializer = serializers.PrivateUserSerializer(user)
+        all_users = User.objects.all()
+        serializer = serializers.PrivateUserSerializer(
+            all_users,
+            many=True,
+            context={"request": request},
+        )
         return Response(serializer.data)
 
     @extend_schema(

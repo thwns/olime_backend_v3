@@ -1,8 +1,9 @@
-from rest_framework.serializers import ModelSerializer
+from rest_framework import serializers
 from .models import User
+from reviews.models import Review
 
 
-class TinyUserSerializer(ModelSerializer):
+class TinyUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = (
@@ -14,18 +15,33 @@ class TinyUserSerializer(ModelSerializer):
         )
 
 
-class PrivateUserSerializer(ModelSerializer):
+class PrivateUserSerializer(serializers.ModelSerializer):
+
+    my_reviews = serializers.SerializerMethodField()
+
     class Meta:
         model = User
-        exclude = (
-            "password",
-            "is_superuser",
-            "id",
-            "is_staff",
-            "is_active",
-            "first_name",
-            "last_name",
-            "groups",
-            "user_permissions",
-            "grade",
+        fields = (
+            "last_login",
+            "username",
+            "email",
+            "date_joined",
+            "avatar",
+            "name",
+            "is_host",
+            "gender",
+            "language",
+            "my_reviews",
         )
+
+    def get_my_reviews(self, user):
+        request = self.context.get("request")
+        if request:
+            if user.is_authenticated:
+                print(Review.objects.filter(
+                    user=request.user,
+                ).values())
+                return Review.objects.filter(
+                    user=request.user,
+                ).values()
+        return False

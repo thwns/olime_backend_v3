@@ -151,10 +151,6 @@ class ContentDetailSerializer(serializers.ModelSerializer):
         request = self.context.get("request")
         if request:
             if request.user.is_authenticated:
-                print(Review.objects.filter(
-                    user=request.user,
-                    content_id=content.pk,
-                ).values())
                 return Review.objects.filter(
                     user=request.user,
                     content_id=content.pk,
