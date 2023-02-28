@@ -16,6 +16,8 @@ class ReplySerializer(serializers.ModelSerializer):
             "payload",
             "lovers_num",
             "rating",
+            "created_at",
+            "updated_at",
         )
 
     def get_lovers_num(self, reply):

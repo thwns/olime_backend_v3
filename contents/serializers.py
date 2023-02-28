@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Book, Lecture, Content, Track
+from reviews.models import Review
 from users.serializers import TinyUserSerializer
 from reviews.serializers import ReviewSerializer
 from categories.serializers import CategorySerializer
@@ -109,11 +110,13 @@ class ContentDetailSerializer(serializers.ModelSerializer):
     # is_leader = serializers.SerializerMethodField()
     # is_followed = serializers.SerializerMethodField()
     # photos = PhotoSerializer(many=True, read_only=True)
+    user_review = serializers.SerializerMethodField()
     lovers_num = serializers.SerializerMethodField()
 
     class Meta:
         model = Content
         fields = (
+            "pk",
             "content_parent",
             "leader",
             "books",
@@ -124,7 +127,7 @@ class ContentDetailSerializer(serializers.ModelSerializer):
             # "is_leader",
             # "photos",
             "lovers_num",
-            # "is_followed",
+            "user_review",
         )
 
     def get_rating(self, content):
@@ -143,6 +146,20 @@ class ContentDetailSerializer(serializers.ModelSerializer):
             user=request.user,
             track__pk=track.pk,
         ).exists()'''
+
+    def get_user_review(self, content):
+        request = self.context.get("request")
+        if request:
+            if request.user.is_authenticated:
+                print(Review.objects.filter(
+                    user=request.user,
+                    content_id=content.pk,
+                ).values())
+                return Review.objects.filter(
+                    user=request.user,
+                    content_id=content.pk,
+                ).values()
+        return False
 
 
 class ContentListSerializer(serializers.ModelSerializer):
