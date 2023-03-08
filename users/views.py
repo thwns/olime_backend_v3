@@ -26,7 +26,7 @@ class Me(APIView):
         responses={201: serializers.PrivateUserSerializer},
     )
     def get(self, request):
-        all_users = User.objects.all()
+        all_users = User.objects.filter(username=request.user)
         serializer = serializers.PrivateUserSerializer(
             all_users,
             many=True,
