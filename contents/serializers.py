@@ -152,7 +152,7 @@ class ContentDetailSerializer(serializers.ModelSerializer):
         if request:
             if request.user.is_authenticated:
                 return Review.objects.filter(
-                    user=request.user,
+                    # user=request.user,
                     content_id=content.pk,
                 ).values()
         return False

@@ -38,9 +38,6 @@ class PrivateUserSerializer(serializers.ModelSerializer):
         request = self.context.get("request")
         if request:
             if user.is_authenticated:
-                print(Review.objects.filter(
-                    user=request.user,
-                ).values())
                 return Review.objects.filter(
                     user=request.user,
                 ).values()
