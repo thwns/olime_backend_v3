@@ -422,13 +422,17 @@ class ContentReviews(APIView):
     )
     def get(self, request, pk):
         try:
-            page = request.query_params.get("page", 1)
-            page = int(page)
+            page_start = request.query_params.get("page_start", 1)
+            page_end = request.query_params.get("page_end", 2)
+            page_start = int(page_start)
+            page_end = int(page_end)
         except ValueError:
-            page = 1
+            page_start = 1
+            page_end = 1
         page_size = settings.PAGE_SIZE
-        start = (page - 1) * page_size
-        end = start + page_size
+        start = (page_start - 1) * page_size
+        end = (page_end - 1) * page_size
+        # end = start + page_size
         content = self.get_object(pk)
         serializer = ReviewSerializer(
             content.reviews.all()[start:end],
