@@ -61,6 +61,66 @@ class Content(CommonModel):
                 total_rating += review["rating"]
             return round(total_rating / count, 2)
 
+    def rating(content):
+        count = content.reviews.count()
+        if count == 0:
+            return 0
+        else:
+            total_rating = 0
+            for review in content.reviews.all().values("rating"):
+                total_rating += review["rating"]
+            return round(total_rating / count, 2)
+
+    def rating_1(content):
+        count = content.reviews.count()
+        if count == 0:
+            return 0
+        else:
+            total_rating = 0
+            for review in content.reviews.all().values("rating_1"):
+                total_rating += review["rating_1"]
+            return round(total_rating / count, 2)
+
+    def rating_2(content):
+        count = content.reviews.count()
+        if count == 0:
+            return 0
+        else:
+            total_rating = 0
+            for review in content.reviews.all().values("rating_2"):
+                total_rating += review["rating_2"]
+            return round(total_rating / count, 2)
+
+    def rating_3(content):
+        count = content.reviews.count()
+        if count == 0:
+            return 0
+        else:
+            total_rating = 0
+            for review in content.reviews.all().values("rating_3"):
+                total_rating += review["rating_3"]
+            return round(total_rating / count, 2)
+
+    def rating_4(content):
+        count = content.reviews.count()
+        if count == 0:
+            return 0
+        else:
+            total_rating = 0
+            for review in content.reviews.all().values("rating_4"):
+                total_rating += review["rating_4"]
+            return round(total_rating / count, 2)
+
+    def rating_5(content):
+        count = content.reviews.count()
+        if count == 0:
+            return 0
+        else:
+            total_rating = 0
+            for review in content.reviews.all().values("rating_5"):
+                total_rating += review["rating_5"]
+            return round(total_rating / count, 2)
+
     def lovers_num(content):
         count = content.lovings.count()
         return count

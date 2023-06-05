@@ -12,6 +12,7 @@ class TinyUserSerializer(serializers.ModelSerializer):
             "avatar",
             "username",
             "grade",
+            "school"
         )
 
 
@@ -32,6 +33,7 @@ class PrivateUserSerializer(serializers.ModelSerializer):
             "gender",
             "language",
             "my_reviews",
+            "school"
         )
 
     def get_my_reviews(self, user):

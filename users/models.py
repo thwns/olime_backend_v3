@@ -20,3 +20,4 @@ class User(AbstractUser):
     gender = models.CharField(max_length=10, choices=GenderChoices.choices,)
     language = models.CharField(max_length=2, choices=LanguageChoices.choices,)
     grade = models.CharField(max_length=20, blank=True)
+    school = models.CharField(max_length=50, blank=True)

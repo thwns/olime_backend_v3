@@ -107,6 +107,11 @@ class ContentDetailSerializer(serializers.ModelSerializer):
         many=True
     )
     rating = serializers.SerializerMethodField()
+    rating_1 = serializers.SerializerMethodField()
+    rating_2 = serializers.SerializerMethodField()
+    rating_3 = serializers.SerializerMethodField()
+    rating_4 = serializers.SerializerMethodField()
+    rating_5 = serializers.SerializerMethodField()
     # is_leader = serializers.SerializerMethodField()
     # is_followed = serializers.SerializerMethodField()
     # photos = PhotoSerializer(many=True, read_only=True)
@@ -124,6 +129,11 @@ class ContentDetailSerializer(serializers.ModelSerializer):
             "category",
             "tracks",
             "rating",
+            "rating_1",
+            "rating_2",
+            "rating_3",
+            "rating_4",
+            "rating_5",
             # "is_leader",
             # "photos",
             "lovers_num",
@@ -132,6 +142,21 @@ class ContentDetailSerializer(serializers.ModelSerializer):
 
     def get_rating(self, content):
         return content.rating()
+
+    def get_rating_1(self, content):
+        return content.rating_1()
+
+    def get_rating_2(self, content):
+        return content.rating_2()
+
+    def get_rating_3(self, content):
+        return content.rating_3()
+
+    def get_rating_4(self, content):
+        return content.rating_4()
+
+    def get_rating_5(self, content):
+        return content.rating_5()
 
     '''def get_is_leader(self, content):
         request = self.context["request"]
@@ -174,6 +199,7 @@ class ContentListSerializer(serializers.ModelSerializer):
             "company",
             "rating",
             "is_leader",
+            "lovers_num",
             "image",
         )
 
@@ -185,6 +211,9 @@ class ContentListSerializer(serializers.ModelSerializer):
         if request:
             return content.leader == request.user
         return False
+
+    def get_lovers_num(self, content):
+        return content.lovers_num()
 
 
 class ContentShowSerializer(serializers.ModelSerializer):
