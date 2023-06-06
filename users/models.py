@@ -17,7 +17,9 @@ class User(AbstractUser):
     avatar = models.PositiveIntegerField(null=True)
     name = models.CharField(max_length=150, default="",)
     is_host = models.BooleanField(default=False,)
-    gender = models.CharField(max_length=10, choices=GenderChoices.choices,)
-    language = models.CharField(max_length=2, choices=LanguageChoices.choices,)
+    gender = models.CharField(
+        max_length=10, choices=GenderChoices.choices, null=True)
+    language = models.CharField(
+        max_length=2, choices=LanguageChoices.choices, null=True)
     grade = models.CharField(max_length=20, blank=True)
     school = models.CharField(max_length=50, blank=True)
