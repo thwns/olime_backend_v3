@@ -175,7 +175,8 @@ class KakaoLogIn(APIView):
         try:
             code = request.data.get("code")
             access_token = requests.post(
-                "https://kauth.kakao.com/oauth/token",           headers={"Contnet-Type": "application/x-www-form-urlencoded"},
+                "https://kauth.kakao.com/oauth/token",
+                headers={"Content-Type": "application/x-www-form-urlencoded"},
                 data={
                     "grant_type": "authorization_code",
                     "client_id": "61988bb09ea464fea807827b2bb34e5a",
@@ -183,12 +184,12 @@ class KakaoLogIn(APIView):
                     "code": code,
                 },
             )
-            access_token = access_token.json(), get("access_token")
-            user_data = request.get(
+            access_token = access_token.json().get("access_token")
+            user_data = requests.get(
                 "https://kapi.kakao.com/v2/user/me",
                 headers={
                     "Authorization": f"Bearer {access_token}",
-                    "Content-type": "application/x-www-form-urlencoded;charset=urf-8",
+                    "Content-type": "application/x-www-form-urlencoded;charset=utf-8",
                 },
             )
             user_data = user_data.json()
