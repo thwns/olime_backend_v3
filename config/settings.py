@@ -66,6 +66,9 @@ CUSTOM_APPS = [
     "medias.apps.MediasConfig",
     "lovings.apps.LovingsConfig",
     "replys.apps.ReviewsConfig",
+    "workbook_evaluations.apps.Workbook_EvaluationsConfig",
+    "workbooks.apps.WorkbooksConfig",
+    "performances.apps.PerformancesConfig",
 ]
 
 SYSTEM_APPS = [

@@ -45,6 +45,9 @@ urlpatterns = [
     path("api/v1/users/", include("users.urls")),
     path("api/v1/reviews/", include("reviews.urls")),
     path("api/v1/replys/", include("replys.urls")),
+    path("api/v1/performances/", include("performances.urls")),
+    path("api/v1/workbooks/", include("workbooks.urls")),
+    path("api/v1/workbook_evaluations/", include("workbook_evaluations.urls")),
     path("graphql", GraphQLView.as_view(schema=schema)),
 ]  # + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns += [

@@ -15,6 +15,7 @@ from rest_framework.permissions import IsAuthenticated
 
 from users.models import User
 from . import serializers
+from django.shortcuts import redirect
 
 
 class Me(APIView):
