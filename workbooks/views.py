@@ -3,10 +3,19 @@ from drf_spectacular.utils import (
     extend_schema,
     OpenApiParameter,
     OpenApiTypes,
+    OpenApiExample,
+    inline_serializer
 )
+from drf_spectacular.types import OpenApiTypes
 from rest_framework.views import APIView
 from rest_framework.status import HTTP_200_OK
-from rest_framework.exceptions import NotFound
+from rest_framework.status import HTTP_204_NO_CONTENT
+from rest_framework.exceptions import (
+    NotFound,
+    NotAuthenticated,
+    ParseError,
+    PermissionDenied,
+)
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from workbook_evaluations.models import Workbook_Evaluation
@@ -14,7 +23,7 @@ from .models import Workbook
 from .serializers import WorkbookSerializer
 
 
-"""class Workbooks(APIView):
+class Workbooks(APIView):
 
     permission_classes = [IsAuthenticated]
 
@@ -36,20 +45,21 @@ from .serializers import WorkbookSerializer
         responses={201: WorkbookSerializer},
     )
     def post(self, request):
-        serializer = WorkbookSerializer(data=request.data)
-        if serializer.is_valid():
-            workbook = serializer.save(
-                user=request.user,
-            )
-            workbook_evaluations = request.data.get("workbook_evaluations")
-            for workbook_evaluation_pk in workbook_evaluations:
-                workbook_evaluation = Workbook_Evaluation.objects.get(
-                    pk=workbook_evaluation_pk)
-                workbook.workbook_evaluations.add(workbook_evaluation)
-            serializer = WorkbookSerializer(workbook)
-            return Response(serializer.data)
-        else:
-            return Response(serializer.errors)
+        if request.user.is_authenticated:
+            serializer = WorkbookSerializer(data=request.data)
+            if serializer.is_valid():
+                workbook = serializer.save(
+                    user=request.user,
+                )
+                workbook_evaluations = request.data.get("workbook_evaluations")
+                for workbook_evaluation_pk in workbook_evaluations:
+                    workbook_evaluation = Workbook_Evaluation.objects.get(
+                        pk=workbook_evaluation_pk)
+                    workbook.workbook_evaluations.add(workbook_evaluation)
+                serializer = WorkbookSerializer(workbook)
+                return Response(serializer.data)
+            else:
+                return Response(serializer.errors)
 
 
 class WorkbookDetail(APIView):
@@ -102,10 +112,10 @@ class WorkbookDetail(APIView):
             )
             return Response(serializer.data)
         else:
-            return Response(serializer.errors)"""
+            return Response(serializer.errors)
 
 
-class Workbooks(APIView):
+"""class Workbooks(APIView):
 
     @extend_schema(
         request=WorkbookSerializer,
@@ -127,12 +137,12 @@ class Workbooks(APIView):
             if serializer.is_valid():
                 workbook_evaluation_pk = request.data.get(
                     "workbook_evaluation")
-                if not workbook_pk:
+                if not workbook_evaluation_pk:
                     raise ParseError("Workbook_Evaluation is required.")
                 try:
                     workbook_evaluation = Workbook_Evaluation.objects.get(
                         pk=workbook_evaluation_pk)
-                except Workbook.DoesNotExist:
+                except Workbook_evaluation.DoesNotExist:
                     raise ParseError("Workbook_Evaluation not found")
                 try:
                     with transaction.atomic():
@@ -215,4 +225,4 @@ class WorkbookDetail(APIView):
         if workbook.user != request.user:
             raise PermissionDenied
         workbook.delete()
-        return Response(status=HTTP_204_NO_CONTENT)
+        return Response(status=HTTP_204_NO_CONTENT)"""

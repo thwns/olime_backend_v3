@@ -7,7 +7,8 @@ class WorkbookSerializer(serializers.ModelSerializer):
 
     workbook_evaluations = Workbook_EvaluationSerializer(
         many=True,
-        read_only=True,
+        # read_only=True,
+        required=False,
     )
 
     class Meta:

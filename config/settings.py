@@ -69,6 +69,12 @@ CUSTOM_APPS = [
     "workbook_evaluations.apps.Workbook_EvaluationsConfig",
     "workbooks.apps.WorkbooksConfig",
     "performances.apps.PerformancesConfig",
+    "schools.apps.SchoolsConfig",
+    "subjects.apps.SubjectsConfig",
+    "current_schools.apps.Current_SchoolsConfig",
+    "target_schools.apps.Target_SchoolsConfig",
+    "early_decisions.apps.Early_DecisionsConfig",
+    "regular_decisions.apps.Regular_DecisionsConfig",
 ]
 
 SYSTEM_APPS = [
