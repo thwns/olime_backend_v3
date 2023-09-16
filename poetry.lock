@@ -283,7 +283,7 @@ Django = ">=3.2"
 
 [[package]]
 name = "Django"
-version = "4.0.8"
+version = "4.0.10"
 description = "A high-level Python web framework that encourages rapid development and clean, pragmatic design."
 category = "main"
 optional = false
@@ -2166,8 +2166,8 @@ dj-database-url = [
     {file = "dj_database_url-1.2.0-py3-none-any.whl", hash = "sha256:5c2993b91801c0f78a8b19e642b497b90831124cbade0c265900d4c1037b4730"},
 ]
 Django = [
-    {file = "Django-4.0.8-py3-none-any.whl", hash = "sha256:27cb08fa6458c1eff8b97c4c2d03774646fb26feeaa4587dca10c49e6d4fc6a3"},
-    {file = "Django-4.0.8.tar.gz", hash = "sha256:07e6433f263c3839939cfabeb6d7557841e0419e47759a7b7d37f6d44d40adcb"},
+    {file = "Django-4.0.10-py3-none-any.whl", hash = "sha256:4496eb4f65071578b703fdc6e6f29302553c7440e3f77baf4cefa4a4e091fc3d"},
+    {file = "Django-4.0.10.tar.gz", hash = "sha256:2c2f73c16b11cb272c6d5e3b063f0d1be06f378d8dc6005fbe8542565db659cc"},
 ]
 django-allauth = [
     {file = "django-allauth-0.54.0.tar.gz", hash = "sha256:120e265f802b65738899c6cb627b827fde46a4d03067034c633f516c2adf3e3e"},

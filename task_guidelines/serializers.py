@@ -1,26 +1,19 @@
 from rest_framework import serializers
 from difficult_questions.serializers import Difficult_QuestionSerializer
-from .models import Task_Day
+from .models import TaskGuideline
 
 
-class Task_DaySerializer(serializers.ModelSerializer):
-
-    difficult_questions = Difficult_QuestionSerializer(
-        many=True,
-        # read_only=True,
-        required=False,
-    )
+class TaskGuidelineSerializer(serializers.ModelSerializer):
+    average_time_taken = serializers.FloatField(read_only=True)
+    difficulty_count = serializers.JSONField(read_only=True)
+    top_difficult_questions = serializers.JSONField(read_only=True)
 
     class Meta:
-        model = Task_Day
+        model = TaskGuideline
         fields = (
-            "pk",
-            "subject",
-            "title",
-            "to_do",
-            "is_completed",
-            "time_taken",
-            "date",
-            "difficulty",
-            "difficult_questions",
+            "id",
+            "task_day",
+            "average_time_taken",
+            "difficulty_count",
+            "top_difficult_questions",
         )

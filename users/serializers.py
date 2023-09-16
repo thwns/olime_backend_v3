@@ -23,6 +23,7 @@ class PrivateUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = (
+            "pk",
             "last_login",
             "username",
             "email",

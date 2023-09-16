@@ -1,7 +1,10 @@
-from django.urls import path
-from .views import Task_Days, Task_DayDetail
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from .views import TaskDayViewSet
+
+router = DefaultRouter()
+router.register(r'task_day', TaskDayViewSet)
 
 urlpatterns = [
-    path("", Task_Days.as_view()),
-    path("<int:pk>", Task_DayDetail.as_view()),
+    path('', include(router.urls)),
 ]

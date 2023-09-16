@@ -54,6 +54,12 @@ urlpatterns = [
     path("api/v1/target_schools/", include("target_schools.urls")),
     path("api/v1/early_decisions/", include("early_decisions.urls")),
     path("api/v1/regular_decisions/", include("regular_decisions.urls")),
+    path("api/v1/task_days/", include("task_days.urls")),
+    path("api/v1/task_guidelines/", include("task_guidelines.urls")),
+    path("api/v1/task_personals/", include("task_personals.urls")),
+    path("api/v1/difficult_questions/", include("difficult_questions.urls")),
+    path("api/v1/task_evaluations/", include("task_evaluations.urls")),
+    path("api/v1/task_assignments/", include("task_assignments.urls")),
     path("graphql", GraphQLView.as_view(schema=schema)),
 ]  # + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns += [

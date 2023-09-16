@@ -75,6 +75,12 @@ CUSTOM_APPS = [
     "target_schools.apps.Target_SchoolsConfig",
     "early_decisions.apps.Early_DecisionsConfig",
     "regular_decisions.apps.Regular_DecisionsConfig",
+    "difficult_questions.apps.Difficult_QuestionsConfig",
+    "task_days.apps.Task_DaysConfig",
+    "task_guidelines.apps.Task_GuidelinesConfig",
+    "task_personals.apps.Task_PersonalsConfig",
+    "task_evaluations.apps.Task_EvaluationsConfig",
+    'task_assignments.apps.TaskAssignmentsConfig',
 ]
 
 SYSTEM_APPS = [

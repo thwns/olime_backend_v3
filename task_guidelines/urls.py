@@ -1,7 +1,9 @@
 from django.urls import path
-from .views import Task_Days, Task_DayDetail
+from .views import TaskGuidelineListCreateView, TaskGuidelineDetailView
 
 urlpatterns = [
-    path("", Task_Days.as_view()),
-    path("<int:pk>", Task_DayDetail.as_view()),
+    path('', TaskGuidelineListCreateView.as_view(),
+         name='task-guideline-list-create'),
+    path('<int:pk>/', TaskGuidelineDetailView.as_view(),
+         name='task-guideline-detail'),
 ]

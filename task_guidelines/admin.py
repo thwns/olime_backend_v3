@@ -1,9 +1,7 @@
 from django.contrib import admin
-from .models import Task_Day
+from .models import TaskGuideline
 
 
-@admin.register(Task_Day)
-class Task_Day(admin.ModelAdmin):
-    list_display = (
-        "user",
-    )
+@admin.register(TaskGuideline)
+class TaskGuideline(admin.ModelAdmin):
+    list_display = ()
