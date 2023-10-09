@@ -1,7 +1,10 @@
-from django.urls import path
-from .views import Workbooks, WorkbookDetail
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from .views import WorkbookViewSet
+
+router = DefaultRouter()
+router.register(r'workbook', WorkbookViewSet)
 
 urlpatterns = [
-    path("", Workbooks.as_view()),
-    path("<int:pk>", WorkbookDetail.as_view()),
+    path('', include(router.urls)),
 ]

@@ -21,5 +21,6 @@ class User(AbstractUser):
         max_length=10, choices=GenderChoices.choices, null=True)
     language = models.CharField(
         max_length=2, choices=LanguageChoices.choices, null=True)
-    grade = models.CharField(max_length=20, blank=True)
-    school = models.CharField(max_length=50, blank=True)
+    grade = models.CharField(max_length=20, blank=True) # 자기 학년
+    current_school = models.CharField(max_length=50, blank=True) # 자기 학교
+    target_school = models.CharField(max_length=50, blank=True)

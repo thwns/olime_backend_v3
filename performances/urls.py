@@ -1,7 +1,10 @@
-from django.urls import path
-from . import views
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from .views import PerformanceViewSet
+
+router = DefaultRouter()
+router.register(r'performance', PerformanceViewSet)
 
 urlpatterns = [
-    path("", views.Performances.as_view()),
-    path("<int:pk>", views.PerformanceDetail.as_view()),
+    path('', include(router.urls)),
 ]

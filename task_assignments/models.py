@@ -8,6 +8,7 @@ class TaskAssignment(CommonModel):
     task_day = models.ForeignKey(
         "task_days.Task_Day", on_delete=models.CASCADE, related_name="task_assignments")
     assigned_date = models.DateField()
+    is_completed = models.BooleanField(default=False)
 
     def __str__(self):
         return f"Assignment of {self.task_day} to {self.user} on {self.assigned_date}"

@@ -1,4 +1,4 @@
-from drf_spectacular.utils import (
+'''from drf_spectacular.utils import (
     extend_schema_view,
     extend_schema,
     OpenApiParameter,
@@ -216,4 +216,13 @@ class Workbook_EvaluationDetail(APIView):
         if workbook_evaluation.user != request.user:
             raise PermissionDenied
         workbook_evaluation.delete()
-        return Response(status=HTTP_204_NO_CONTENT)
+        return Response(status=HTTP_204_NO_CONTENT)'''
+from rest_framework import viewsets
+from .models import Workbook_Evaluation
+from .serializers import Workbook_EvaluationSerializer
+
+
+class Workbook_EvaluationViewSet(viewsets.ModelViewSet):
+    queryset = Workbook_Evaluation.objects.all()
+    serializer_class = Workbook_EvaluationSerializer
+

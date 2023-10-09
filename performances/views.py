@@ -1,4 +1,13 @@
-from drf_spectacular.utils import (
+from rest_framework import viewsets
+from .models import Performance
+from .serializers import PerformanceSerializer
+
+
+class PerformanceViewSet(viewsets.ModelViewSet):
+    queryset = Performance.objects.all()
+    serializer_class = PerformanceSerializer
+
+'''from drf_spectacular.utils import (
     extend_schema_view,
     extend_schema,
     OpenApiParameter,
@@ -305,4 +314,4 @@ class PerformanceDetail(APIView):
         if performance.user != request.user:
             raise PermissionDenied
         performance.delete()
-        return Response(status=HTTP_204_NO_CONTENT)
+        return Response(status=HTTP_204_NO_CONTENT)'''
