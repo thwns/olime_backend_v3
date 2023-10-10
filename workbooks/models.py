@@ -6,12 +6,12 @@ class Workbook(CommonModel):
 
     """ Workbook Model definition """
 
-    user = models.ForeignKey(
+    '''user = models.ForeignKey(
         "users.User",
         null=True,
         on_delete=models.SET_NULL,
         related_name="workbooks",
-    )
+    )'''
     name = models.CharField(
         max_length=150,
     )
