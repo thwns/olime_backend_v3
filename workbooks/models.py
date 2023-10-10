@@ -12,6 +12,14 @@ class Workbook(CommonModel):
         on_delete=models.SET_NULL,
         related_name="workbooks",
     )'''
+    subject = models.CharField(
+        max_length=50,
+        blank=True,
+    )
+    learning_type = models.CharField(
+        max_length=50,
+        blank=True,
+    )
     name = models.CharField(
         max_length=150,
     )
