@@ -27,6 +27,10 @@ class Workbook(CommonModel):
         max_length=150,
         blank=True,
     )
+    image_url = models.CharField(
+        max_length=150,
+        blank=True,
+    )
     workbook_evalution = models.ManyToManyField(
         "workbook_evaluations.Workbook_Evaluation",
         blank=True,
