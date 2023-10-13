@@ -16,6 +16,10 @@ class Workbook(CommonModel):
         max_length=50,
         blank=True,
     )
+    subject_detail = models.CharField(
+        max_length=50,
+        blank=True,
+    )
     learning_type = models.CharField(
         max_length=50,
         blank=True,
