@@ -1,24 +1,10 @@
-from django.urls import path
-from . import views
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from .views import SchoolViewSet
+
+router = DefaultRouter()
+router.register(r'school', SchoolViewSet)
 
 urlpatterns = [
-    path(
-        "",
-        views.SchoolViewSet.as_view(
-            {
-                "get": "list",
-                "post": "create",
-            }
-        ),
-    ),
-    path(
-        "<int:pk>",
-        views.SchoolViewSet.as_view(
-            {
-                "get": "retrieve",
-                "put": "partial_update",
-                "delete": "destroy",
-            }
-        ),
-    ),
+    path('', include(router.urls)),
 ]
