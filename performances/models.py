@@ -12,6 +12,7 @@ class Performance(CommonModel):
         on_delete=models.SET_NULL,
         related_name="performances",
     )
+    decision = models.CharField(max_length=30)
     subject = models.CharField(max_length=30)
     score = models.PositiveSmallIntegerField(null=True)
 
