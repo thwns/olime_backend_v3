@@ -48,7 +48,7 @@ urlpatterns = [
     path("api/v1/performances/", include("performances.urls")),
     path("api/v1/workbooks/", include("workbooks.urls")),
     path("api/v1/workbook_evaluations/", include("workbook_evaluations.urls")),
-    #path("api/v1/schools/", include("schools.urls")),
+    path("api/v1/schools/", include("schools.urls")),
     #path("api/v1/subjects/", include("subjects.urls")),
     path("api/v1/current_schools/", include("current_schools.urls")),
     path("api/v1/target_schools/", include("target_schools.urls")),
