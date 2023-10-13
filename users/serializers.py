@@ -25,6 +25,7 @@ class PrivateUserSerializer(serializers.ModelSerializer):
         model = User
         fields = (
             "pk",
+            "login_path",
             "last_login",
             "username",
             "email",

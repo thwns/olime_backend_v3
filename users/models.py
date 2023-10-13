@@ -12,6 +12,7 @@ class User(AbstractUser):
         KR = ("kr", "Kr")
         EN = ("en", "En")
 
+    login_path = models.CharField(max_length=50, blank=True)
     first_name = models.CharField(max_length=150, editable=False)
     last_name = models.CharField(max_length=150, editable=False)
     avatar = models.PositiveIntegerField(null=True)
