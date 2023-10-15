@@ -4,6 +4,9 @@ from drf_spectacular.utils import (
     OpenApiParameter,
     OpenApiTypes,
 )
+from multiprocessing import AuthenticationError
+from rest_framework.authentication import BaseAuthentication
+from rest_framework.exceptions import AuthenticationFailed
 import jwt
 from django.conf import settings
 from django.contrib.auth import authenticate, login, logout
@@ -153,12 +156,14 @@ class JWTLogIn(APIView):
     def post(self, request):
         username = request.data.get("username")
         password = request.data.get("password")
-        if not username or not password:
+        login_path = request.data.get("login_path")
+        if not username or not password or not login_path:
             raise ParseError
         user = authenticate(
             request,
             username=username,
             password=password,
+            login_path=login_path,
         )
         if user:
             token = jwt.encode(
@@ -170,6 +175,24 @@ class JWTLogIn(APIView):
         else:
             return Response({"error": "wrong password"})
 
+class JWTAuthentication(BaseAuthentication):
+    def authenticate(self, request):
+        token = request.headers.get("Jwt")
+        if not token:
+            return None
+        decoded = jwt.decode(
+            token,
+            settings.SECRET_KEY,
+            algorithms=["HS256"],
+        )
+        pk = decoded.get("pk")
+        if not pk:
+            raise AuthenticationFailed("Invalid Token")
+        try:
+            user = User.objects.get(pk=pk)
+            return (user, None)
+        except User.DoesNotExist:
+            raise AuthenticationFailed("User Not Found")
 
 class KakaoLogIn(APIView):
     def post(self, request):
